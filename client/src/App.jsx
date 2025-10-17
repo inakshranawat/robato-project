@@ -45,8 +45,8 @@ const App = () => {
       el: scrollRef.current,
       smooth: true,
       multiplier: 1.2,
-      smartphone: { smooth: true },
-      tablet: { smooth: true },
+      smartphone: { smooth: false },
+      tablet: { smooth: false },
     });
 
     return () => {
