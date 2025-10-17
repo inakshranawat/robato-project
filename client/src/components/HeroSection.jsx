@@ -57,12 +57,15 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, delay: 0.9, ease: "easeOut" }}
           >
-            <button
-              onClick={() => setDemoOpen(true)}
-              className="cursor-pointer text-purple-950 border px-5 py-2 hover:text-white hover:bg-purple-950 bg-transparent w-full sm:w-auto"
-            >
-              Book a Demo
-            </button>
+          <button
+  onClick={() => {
+    console.log("Book a Demo button clicked ✅");
+    setDemoOpen(true);
+  }}
+  className="relative z-50 cursor-pointer text-purple-950 border px-5 py-2 hover:text-white hover:bg-purple-950 bg-transparent w-full sm:w-auto"
+>
+  Book a Demo
+</button>
             <button
               onClick={() => navigate("/contact-us")}
               className="border px-5 py-2 text-white hover:bg-gray-500 hover:text-black bg-purple-950 w-full sm:w-auto"

@@ -31,6 +31,7 @@ import IndustrialParameterDisplay from "./pages/products/IndustrialParameterDisp
 import AndonSignalTowerLight from "./pages/products/AndonSignalTowerLight";
 import WirelessAndonTowerLight from "./pages/products/WirelessAndonTowerLight";
 import CloudAndonTowerLight from "./pages/products/CloudAndonTowerLight";
+import DemoBtn from './components/DemoBtn';
 
 const App = () => {
   
@@ -84,6 +85,7 @@ const App = () => {
         </Routes>
 
         <Footer />
+        <DemoBtn/>
       </div>
     </div>
   );
