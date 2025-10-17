@@ -9,7 +9,7 @@ const DemoBtn = () => {
     <>
       <div>
          {demoOpen && (
-        <div className="fixed inset-0 z-50 bg-transparent bg-opacity-50 flex justify-center items-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center p-4 overflow-y-auto">
          <div className="bg-white w-full max-w-5xl rounded-xl shadow-2xl relative my-8">
   {/* Purple Header */}
   <div className="bg-[#430099] px-4 md:px-8 py-4 relative">
