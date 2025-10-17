@@ -5,237 +5,296 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Accodian = () => {
   const [openIndex, setOpenIndex] = useState(null);
+  const [activeSection, setActiveSection] = useState(null);
 
-  const toggleOpen = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
+  const toggleOpen = (index, section) => {
+    if (activeSection === section && openIndex === index) {
+      setOpenIndex(null);
+      setActiveSection(null);
+    } else {
+      setOpenIndex(index);
+      setActiveSection(section);
+    }
   };
 
   return (
     <>
       {/* Section 1 */}
-      <div className="mt-10 px-6 md:px-10 lg:px-20 py-10">
-        <h1 className="text-4xl text-zinc-700 font-bold text-center mx-auto max-w-4xl">
+      <div className="mt-6 sm:mt-10 px-4 sm:px-6 md:px-10 lg:px-20 py-6 sm:py-10">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-zinc-800 font-bold text-center mx-auto max-w-5xl leading-tight"
+        >
           UNLOCK THE FULL POTENTIAL OF YOUR MANUFACTURING OPERATIONS
-        </h1>
+        </motion.h1>
 
-        <div className="flex flex-col lg:flex-row mt-20 gap-10 min-h-[600px] overflow-hidden">
-          <div className="flex-1 overflow-y-auto h-[600px] pr-2">
+        <div className="flex flex-col lg:flex-row mt-10 sm:mt-16 lg:mt-20 gap-6 sm:gap-8 lg:gap-10">
+          <div className="flex-1 space-y-4 sm:space-y-5 lg:space-y-6 lg:max-h-[600px] lg:overflow-y-auto lg:pr-2 scrollbar-thin scrollbar-thumb-purple-300 scrollbar-track-gray-100">
             {data.map((item, index) => (
-              <div key={index} className="mb-6 select-none">
+              <motion.div 
+                key={index} 
+                className="select-none"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
                 <div
-                  onClick={() => toggleOpen(index)}
-                  className="flex items-center justify-between cursor-pointer bg-white hover:bg-purple-50 border border-purple-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4"
+                  onClick={() => toggleOpen(index, 'section1')}
+                  className="flex items-center justify-between cursor-pointer bg-gradient-to-r from-white to-purple-50 hover:from-purple-50 hover:to-indigo-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-4 sm:p-5 group"
                 >
-                  <h2 className="text-lg font-semibold text-zinc-700 hover:text-indigo-900">
+                  <h2 className="text-base sm:text-lg md:text-xl font-semibold text-zinc-700 group-hover:text-indigo-900 transition-colors pr-3">
                     {item.title}
                   </h2>
                   <motion.div
-                    animate={{ rotate: openIndex === index ? 45 : 0 }}
+                    animate={{ rotate: activeSection === 'section1' && openIndex === index ? 45 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-purple-700"
+                    className="text-purple-700 group-hover:text-indigo-700 flex-shrink-0"
                   >
-                    {openIndex === index ? <Minus size={20} /> : <Plus size={20} />}
+                    {activeSection === 'section1' && openIndex === index ? <Minus size={20} /> : <Plus size={20} />}
                   </motion.div>
                 </div>
 
                 <AnimatePresence>
-                  {openIndex === index && (
+                  {activeSection === 'section1' && openIndex === index && (
                     <motion.p
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="mt-2 text-gray-600 pl-4 pr-2"
+                      className="mt-3 text-sm sm:text-base text-gray-600 pl-4 pr-2 leading-relaxed"
                     >
                       {item.description}
                     </motion.p>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <div className="flex-1 flex justify-center items-start">
+          <div className="flex-1 flex justify-center items-start mt-6 lg:mt-0">
             <motion.img
-              className="max-w-full shadow-[0_10px_30px_rgba(0,0,0,0.3)]  h-auto"
+              className="w-full max-w-md lg:max-w-full h-auto shadow-[0_10px_40px_rgba(139,92,246,0.3)] rounded-xl"
               src={accordian_1}
-              alt="Illustration"
-              initial={{ opacity: 0 ,x:70}}
-              whileInView={{opacity:1, x:0}}
-              transition={{ duration: 0.8 , delay:0.4 }}
-              viewport={{once: true}}
+              alt="Manufacturing Operations"
+              initial={{ opacity: 0, x: 70 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
             />
           </div>
         </div>
       </div>
 
       {/* Section 2 */}
-      <div className="bg-[rgb(250,250,250)] px-6 md:px-10 lg:px-20 py-10">
-        <h1 className="text-4xl text-zinc-700 font-bold text-center mx-auto max-w-4xl">
+      <div className="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 md:px-10 lg:px-20 py-6 sm:py-10">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-zinc-800 font-bold text-center mx-auto max-w-5xl leading-tight"
+        >
           COMPREHENSIVE PERSPECTIVE OF THE ENTIRE ORGANISATION
-        </h1>
+        </motion.h1>
 
-        <div className="flex flex-col lg:flex-row mt-20 gap-10 min-h-[600px] overflow-hidden">
-          <div className="flex-1 flex justify-center items-start">
-            <motion.img
-              className="max-w-full rounded-lg h-auto shadow-[0_20px_50px_rgba(0,0,0,0.4)] "
-              src={dashboard}
-              alt="Illustration"
-              initial={{ opacity: 0 , x:-80 }}
-              whileInView={{ opacity: 1 , x:0 }}
-              transition={{ duration: 1 , delay:0.4 }}
-              viewport={{once:true}}
-            />
-          </div>
-
-          <div className="flex-1 overflow-y-auto h-[600px] pr-2">
+        <div className="flex flex-col lg:flex-row-reverse mt-10 sm:mt-16 lg:mt-20 gap-6 sm:gap-8 lg:gap-10">
+          <div className="flex-1 space-y-4 sm:space-y-5 lg:space-y-6 lg:max-h-[600px] lg:overflow-y-auto lg:pr-2 scrollbar-thin scrollbar-thumb-purple-300 scrollbar-track-gray-100">
             {Organisation.map((item, index) => (
-              <div key={index} className="mb-6 select-none">
+              <motion.div 
+                key={index} 
+                className="select-none"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
                 <div
-                  onClick={() => toggleOpen(index)}
-                  className="flex items-center justify-between uppercase cursor-pointer bg-white hover:bg-purple-50 border border-purple-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4"
+                  onClick={() => toggleOpen(index, 'section2')}
+                  className="flex items-center justify-between uppercase cursor-pointer bg-gradient-to-r from-white to-purple-50 hover:from-purple-50 hover:to-indigo-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-4 sm:p-5 group"
                 >
-                  <h2 className="text-lg font-semibold text-zinc-700 hover:text-indigo-900">
+                  <h2 className="text-sm sm:text-base md:text-lg font-semibold text-zinc-700 group-hover:text-indigo-900 transition-colors pr-3">
                     {item.title}
                   </h2>
                   <motion.div
-                    animate={{ rotate: openIndex === index ? 45 : 0 }}
+                    animate={{ rotate: activeSection === 'section2' && openIndex === index ? 45 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-purple-700"
+                    className="text-purple-700 group-hover:text-indigo-700 flex-shrink-0"
                   >
-                    {openIndex === index ? <Minus size={20} /> : <Plus size={20} />}
+                    {activeSection === 'section2' && openIndex === index ? <Minus size={20} /> : <Plus size={20} />}
                   </motion.div>
                 </div>
 
                 <AnimatePresence>
-                  {openIndex === index && (
+                  {activeSection === 'section2' && openIndex === index && (
                     <motion.p
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="mt-2 text-gray-600 pl-4 pr-2"
+                      className="mt-3 text-sm sm:text-base text-gray-600 pl-4 pr-2 leading-relaxed"
                     >
                       {item.description}
                     </motion.p>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             ))}
+          </div>
+
+          <div className="flex-1 flex justify-center items-start mt-6 lg:mt-0">
+            <motion.img
+              className="w-full max-w-md lg:max-w-full h-auto rounded-2xl shadow-[0_20px_60px_rgba(139,92,246,0.4)]"
+              src={dashboard}
+              alt="Organisation Dashboard"
+              initial={{ opacity: 0, x: -80 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.4 }}
+              viewport={{ once: true }}
+            />
           </div>
         </div>
       </div>
 
       {/* Section 3 */}
-      <div className="mt-10 px-6 md:px-10 lg:px-20 py-10">
-        <h1 className="text-4xl text-zinc-700 font-bold text-center mx-auto max-w-4xl">
+      <div className="mt-6 sm:mt-10 px-4 sm:px-6 md:px-10 lg:px-20 py-6 sm:py-10">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-zinc-800 font-bold text-center mx-auto max-w-5xl leading-tight"
+        >
           ENHANCED PRODUCTION INSIGHTS - PERSONALIZED TO YOUR SHOP FLOOR
-        </h1>
+        </motion.h1>
 
-        <div className="flex flex-col lg:flex-row mt-20 gap-10 min-h-[600px] overflow-hidden">
-          <div className="flex-1 overflow-y-auto h-[600px] pr-2">
+        <div className="flex flex-col lg:flex-row mt-10 sm:mt-16 lg:mt-20 gap-6 sm:gap-8 lg:gap-10">
+          <div className="flex-1 space-y-4 sm:space-y-5 lg:space-y-6 lg:max-h-[600px] lg:overflow-y-auto lg:pr-2 scrollbar-thin scrollbar-thumb-purple-300 scrollbar-track-gray-100">
             {ShopFloor.map((item, index) => (
-              <div key={index} className="mb-6 select-none">
+              <motion.div 
+                key={index} 
+                className="select-none"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
                 <div
-                  onClick={() => toggleOpen(index)}
-                  className="flex items-center uppercase justify-between cursor-pointer bg-white hover:bg-purple-50 border border-purple-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4"
+                  onClick={() => toggleOpen(index, 'section3')}
+                  className="flex items-center uppercase justify-between cursor-pointer bg-gradient-to-r from-white to-purple-50 hover:from-purple-50 hover:to-indigo-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-4 sm:p-5 group"
                 >
-                  <h2 className="text-lg font-semibold text-zinc-700 hover:text-indigo-900">
+                  <h2 className="text-sm sm:text-base md:text-lg font-semibold text-zinc-700 group-hover:text-indigo-900 transition-colors pr-3">
                     {item.title}
                   </h2>
                   <motion.div
-                    animate={{ rotate: openIndex === index ? 45 : 0 }}
+                    animate={{ rotate: activeSection === 'section3' && openIndex === index ? 45 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-purple-700"
+                    className="text-purple-700 group-hover:text-indigo-700 flex-shrink-0"
                   >
-                    {openIndex === index ? <Minus size={20} /> : <Plus size={20} />}
+                    {activeSection === 'section3' && openIndex === index ? <Minus size={20} /> : <Plus size={20} />}
                   </motion.div>
                 </div>
 
                 <AnimatePresence>
-                  {openIndex === index && (
+                  {activeSection === 'section3' && openIndex === index && (
                     <motion.p
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="mt-2 text-gray-600 pl-4 pr-2"
+                      className="mt-3 text-sm sm:text-base text-gray-600 pl-4 pr-2 leading-relaxed"
                     >
                       {item.description}
                     </motion.p>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <div className="flex-1 flex justify-center items-start">
+          <div className="flex-1 flex justify-center items-start mt-6 lg:mt-0">
             <motion.img
-              className="max-w-full rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] h-auto"
+              className="w-full max-w-md lg:max-w-full h-auto rounded-2xl shadow-[0_20px_60px_rgba(139,92,246,0.4)]"
               src={MachineOverview}
-              alt="Illustration"
-              initial={{ opacity: 0 ,x:70 }}
-              whileInView={{ opacity: 1 , x:0 }}
-              transition={{ duration: 0.8 , delay:0.4 }}
-              viewport={{once: true}}
+              alt="Shop Floor Overview"
+              initial={{ opacity: 0, x: 70 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
             />
           </div>
         </div>
       </div>
 
       {/* Section 4 */}
-      <div className="bg-[rgb(250,250,250)] px-6 md:px-10 lg:px-20 py-10">
-        <h1 className="text-4xl uppercase text-zinc-700 font-bold text-center mx-auto max-w-4xl">
+      <div className="bg-gradient-to-b from-gray-50 to-white px-4 sm:px-6 md:px-10 lg:px-20 py-6 sm:py-10">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl uppercase text-zinc-800 font-bold text-center mx-auto max-w-5xl leading-tight"
+        >
           A Modern Platform to Empower Your data-driven Business
-        </h1>
+        </motion.h1>
 
-        <div className="flex flex-col lg:flex-row mt-20 gap-10 min-h-[600px] overflow-hidden">
-          <div className="flex-1 flex justify-center items-start">
-            <motion.img
-              className="max-w-full shadow-[0_10px_30px_rgba(0,0,0,0.6)]  rounded-md h-auto"
-              src={DataDrivenn}
-              alt="Illustration"
-              initial={{ opacity: 0 ,x:-70 }}
-              whileInView={{ opacity: 1 , x:0 }}
-              transition={{ duration: 0.8 , delay:0.3 }}
-              viewport={{once:true}}
-            />
-          </div>
-
-          <div className="flex-1 overflow-y-auto h-[600px] pr-2">
+        <div className="flex flex-col lg:flex-row-reverse mt-10 sm:mt-16 lg:mt-20 gap-6 sm:gap-8 lg:gap-10">
+          <div className="flex-1 space-y-4 sm:space-y-5 lg:space-y-6 lg:max-h-[600px] lg:overflow-y-auto lg:pr-2 scrollbar-thin scrollbar-thumb-purple-300 scrollbar-track-gray-100">
             {DataDriven.map((item, index) => (
-              <div key={index} className="mb-6 select-none">
+              <motion.div 
+                key={index} 
+                className="select-none"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
                 <div
-                  onClick={() => toggleOpen(index)}
-                  className="flex items-center justify-between uppercase cursor-pointer bg-white hover:bg-purple-50 border border-purple-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-4"
+                  onClick={() => toggleOpen(index, 'section4')}
+                  className="flex items-center justify-between uppercase cursor-pointer bg-gradient-to-r from-white to-purple-50 hover:from-purple-50 hover:to-indigo-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-4 sm:p-5 group"
                 >
-                  <h2 className="text-lg font-semibold text-zinc-700 hover:text-indigo-900">
+                  <h2 className="text-sm sm:text-base md:text-lg font-semibold text-zinc-700 group-hover:text-indigo-900 transition-colors pr-3">
                     {item.title}
                   </h2>
                   <motion.div
-                    animate={{ rotate: openIndex === index ? 45 : 0 }}
+                    animate={{ rotate: activeSection === 'section4' && openIndex === index ? 45 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-purple-700"
+                    className="text-purple-700 group-hover:text-indigo-700 flex-shrink-0"
                   >
-                    {openIndex === index ? <Minus size={20} /> : <Plus size={20} />}
+                    {activeSection === 'section4' && openIndex === index ? <Minus size={20} /> : <Plus size={20} />}
                   </motion.div>
                 </div>
 
                 <AnimatePresence>
-                  {openIndex === index && (
+                  {activeSection === 'section4' && openIndex === index && (
                     <motion.p
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="mt-2 text-gray-600 pl-4 pr-2"
+                      className="mt-3 text-sm sm:text-base text-gray-600 pl-4 pr-2 leading-relaxed"
                     >
                       {item.description}
                     </motion.p>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             ))}
+          </div>
+
+          <div className="flex-1 flex justify-center items-start mt-6 lg:mt-0">
+            <motion.img
+              className="w-full max-w-md lg:max-w-full h-auto shadow-[0_20px_60px_rgba(139,92,246,0.5)] rounded-2xl"
+              src={DataDrivenn}
+              alt="Data-Driven Platform"
+              initial={{ opacity: 0, x: -70 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+            />
           </div>
         </div>
       </div>
