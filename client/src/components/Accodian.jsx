@@ -77,7 +77,7 @@ const Accodian = () => {
 
           <div className="flex-1 flex justify-center items-start mt-6 lg:mt-0">
             <motion.img
-              className="w-full max-w-md lg:max-w-full h-auto shadow-[0_10px_40px_rgba(139,92,246,0.3)] rounded-xl"
+              className="w-full max-w-md lg:max-w-full h-auto shadow-[0_10px_40px_rgba(0,0,0,0.6)] rounded-xl"
               src={accordian_1}
               alt="Manufacturing Operations"
               initial={{ opacity: 0, x: 70 }}
@@ -147,7 +147,7 @@ const Accodian = () => {
 
           <div className="flex-1 flex justify-center items-start mt-6 lg:mt-0">
             <motion.img
-              className="w-full max-w-md lg:max-w-full h-auto rounded-2xl shadow-[0_20px_60px_rgba(139,92,246,0.4)]"
+              className="w-full max-w-md lg:max-w-full h-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
               src={dashboard}
               alt="Organisation Dashboard"
               initial={{ opacity: 0, x: -80 }}
@@ -217,7 +217,7 @@ const Accodian = () => {
 
           <div className="flex-1 flex justify-center items-start mt-6 lg:mt-0">
             <motion.img
-              className="w-full max-w-md lg:max-w-full h-auto rounded-2xl shadow-[0_20px_60px_rgba(139,92,246,0.4)]"
+              className="w-full max-w-md lg:max-w-full h-auto rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
               src={MachineOverview}
               alt="Shop Floor Overview"
               initial={{ opacity: 0, x: 70 }}
@@ -287,7 +287,7 @@ const Accodian = () => {
 
           <div className="flex-1 flex justify-center items-start mt-6 lg:mt-0">
             <motion.img
-              className="w-full max-w-md lg:max-w-full h-auto shadow-[0_20px_60px_rgba(139,92,246,0.5)] rounded-2xl"
+              className="w-full max-w-md lg:max-w-full h-auto shadow-[0_20px_60px_rgba(0,0,0,0.6)] rounded-2xl"
               src={DataDrivenn}
               alt="Data-Driven Platform"
               initial={{ opacity: 0, x: -70 }}
