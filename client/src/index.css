@@ -4,8 +4,10 @@
 *{
      font-family: "Poppins", sans-serif;
   font-style: normal;
+
+   box-sizing: border-box;
   
-  box-sizing: border-box;
+  
 }
 
 .perspective {
@@ -18,3 +20,9 @@
 .text-depth {
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* x-offset, y-offset, blur, color */
 }
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
