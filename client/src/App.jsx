@@ -1,11 +1,9 @@
-import React, { useEffect, useRef } from 'react'
 import Navbar from './components/Navbar'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Contact from './pages/Contact'
 import Home from './pages/Home'
 import Company from './pages/Company'
 import BlogDetail from './pages/BlogDetail'
-import LocomotiveScroll from 'locomotive-scroll'
 import 'locomotive-scroll/dist/locomotive-scroll.css'
 
 // Solutions
@@ -32,55 +30,15 @@ import Blogs from './pages/Blogs'
 import Footer from './components/Footer'
 
 const App = () => {
-  const scrollRef = useRef(null);
-  const locomotiveScrollRef = useRef(null);
-  const location = useLocation();
+ 
 
-  useEffect(() => {
-    // Initialize Locomotive Scroll
-    if (scrollRef.current) {
-      locomotiveScrollRef.current = new LocomotiveScroll({
-        el: scrollRef.current,
-        smooth: true,
-        smoothMobile: true,
-        multiplier: 1.0,
-        lerp: 0.08,
-        smartphone: {
-          smooth: true
-        },
-        tablet: {
-          smooth: true
-        }
-      });
-    }
-
-    return () => {
-      if (locomotiveScrollRef.current) {
-        locomotiveScrollRef.current.destroy();
-      }
-    };
-  }, []);
-
-  // Update scroll on route change
-  useEffect(() => {
-    if (locomotiveScrollRef.current) {
-      locomotiveScrollRef.current.scrollTo(0, {
-        duration: 0,
-        disableLerp: true
-      });
-      
-      setTimeout(() => {
-        locomotiveScrollRef.current.update();
-      }, 100);
-    }
-  }, [location.pathname]);
 
   return (
     <>
-      <div ref={scrollRef} data-scroll-container>
+    
         <Navbar/>
 
-        <div data-scroll-section>
+        <div>
           <Routes>
             <Route path='/blogs' element={<Blogs/>} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
@@ -111,7 +69,7 @@ const App = () => {
 
           <Footer />
         </div>
-      </div>
+    
     </>
   )
 }
