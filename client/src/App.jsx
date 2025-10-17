@@ -35,7 +35,7 @@ const App = () => {
 
   return (
     <>
-     <div className='w-full overflow-auto'>
+     <div className='w-full'>
 
         <Navbar/>
 
