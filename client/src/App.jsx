@@ -1,12 +1,14 @@
-import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Lenis from '@studio-freight/lenis';
+import { useEffect, useRef } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import LocomotiveScroll from 'locomotive-scroll';
+import 'locomotive-scroll/dist/locomotive-scroll.css';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import DemoBtn from './components/DemoBtn';
 
-import Contact from './pages/Contact';
 import Home from './pages/Home';
+import Contact from './pages/Contact';
 import Company from './pages/Company';
 import BlogDetail from './pages/BlogDetail';
 import Blogs from './pages/Blogs';
@@ -31,37 +33,46 @@ import IndustrialParameterDisplay from "./pages/products/IndustrialParameterDisp
 import AndonSignalTowerLight from "./pages/products/AndonSignalTowerLight";
 import WirelessAndonTowerLight from "./pages/products/WirelessAndonTowerLight";
 import CloudAndonTowerLight from "./pages/products/CloudAndonTowerLight";
-import DemoBtn from './components/DemoBtn';
 
 const App = () => {
-  
+  const scrollRef = useRef(null);
+  const locoRef = useRef(null);
+  const location = useLocation();
+
+  // Initialize Locomotive Scroll
   useEffect(() => {
-    // Initialize Lenis for smooth scrolling
-    const lenis = new Lenis({
-      duration: 2.5,      // maximum smoothness
+    locoRef.current = new LocomotiveScroll({
+      el: scrollRef.current,
       smooth: true,
-      smoothTouch: true,  // smooth scrolling on touch devices
+      multiplier: 1.2,
+      smartphone: { smooth: true },
+      tablet: { smooth: true },
     });
 
-    // RAF loop
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    return () => {
+      if (locoRef.current) locoRef.current.destroy();
+    };
   }, []);
 
+  // Update Locomotive Scroll on route change
+  useEffect(() => {
+    if (locoRef.current) {
+      locoRef.current.update();
+    }
+  }, [location.pathname]);
+
   return (
-    <div id="lenis-container">
+    <div id="app" data-scroll-container ref={scrollRef}>
       <Navbar />
 
-      <div>
+      {/* Each route wrapped as a scroll section */}
+      <div data-scroll-section>
         <Routes>
-          <Route path='/blogs' element={<Blogs />} />
-          <Route path="/blog/:slug" element={<BlogDetail />} />
           <Route path='/' element={<Home />} />
           <Route path='/contact-us' element={<Contact />} />
           <Route path='/about-us' element={<Company />} />
+          <Route path='/blogs' element={<Blogs />} />
+          <Route path='/blog/:slug' element={<BlogDetail />} />
 
           <Route path="/aerospace-defense" element={<Aerospace />} />
           <Route path="/automotive" element={<Automotive />} />
@@ -75,7 +86,6 @@ const App = () => {
           <Route path="/process-optimization" element={<ProcessOptimization />} />
           <Route path="/machine-builders" element={<MachineBuilders />} />
 
-          {/* Products */}
           <Route path="/production-counter-display" element={<ProductionCounterDisplay />} />
           <Route path="/andon-board-display" element={<AndonBoardDisplay />} />
           <Route path="/industrial-parameter-display" element={<IndustrialParameterDisplay />} />
@@ -83,12 +93,17 @@ const App = () => {
           <Route path="/wireless-andon-tower-light" element={<WirelessAndonTowerLight />} />
           <Route path="/cloud-andon-tower-light" element={<CloudAndonTowerLight />} />
         </Routes>
-
-        <Footer />
-        <DemoBtn/>
       </div>
+
+      {/* Footer outside routes but inside scroll container */}
+      <div data-scroll-section>
+        <Footer />
+      </div>
+
+      {/* Demo Button fixed */}
+      <DemoBtn />
     </div>
   );
-}
+};
 
 export default App;
