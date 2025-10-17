@@ -337,7 +337,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile/Tablet: CTA Buttons + Hamburger */}
-          <div className="flex xl:hidden absolute z-50 items-center gap-3">
+          <div className="flex xl:hidden  items-center gap-3">
             <button
               onClick={() => setDemoOpen(true)}
               className="hidden sm:block border border-purple-700 text-purple-700 px-3 py-1.5 rounded hover:bg-purple-50 transition font-medium text-xs whitespace-nowrap"
