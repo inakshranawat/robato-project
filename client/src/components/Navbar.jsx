@@ -26,7 +26,7 @@ const Navbar = () => {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative w-full bg-white shadow-sm border-b border-gray-200 z-[999999]"
+        className="absolute w-full bg-white shadow-sm border-b border-gray-200 z-[999]"
       >
         <div className="flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 py-3 sm:py-4">
           {/* Logo */}
