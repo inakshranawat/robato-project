@@ -35,7 +35,8 @@ const App = () => {
 
   return (
     <>
-    
+     <div className='w-full'>
+
         <Navbar/>
 
         <div>
@@ -69,6 +70,7 @@ const App = () => {
 
           <Footer />
         </div>
+     </div>
     
     </>
   )
