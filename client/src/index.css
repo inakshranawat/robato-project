@@ -24,8 +24,12 @@
 html, body {
   overflow-x: hidden;
   width: 100%;
-
-  
   
 }
+
+button {
+  pointer-events: auto; /* make sure it's not blocked */
+  z-index: 50;          /* make sure it's above other layers */
+}
+
 

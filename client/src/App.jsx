@@ -37,7 +37,7 @@ const App = () => {
   useEffect(() => {
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis({
-      duration: 3,      // maximum smoothness
+      duration: 2.5,      // maximum smoothness
       smooth: true,
       smoothTouch: true,  // smooth scrolling on touch devices
     });
