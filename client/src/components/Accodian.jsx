@@ -7,14 +7,14 @@ const Accodian = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const [activeSection, setActiveSection] = useState(null);
 
-  const toggleOpen = (index, section) => {
-    if (activeSection === section && openIndex === index) {
-      setOpenIndex(null);
-      setActiveSection(null);
-    } else {
-      setOpenIndex(index);
-      setActiveSection(section);
-    }
+  const handleMouseEnter = (index, section) => {
+    setOpenIndex(index);
+    setActiveSection(section);
+  };
+
+  const handleMouseLeave = () => {
+    setOpenIndex(null);
+    setActiveSection(null);
   };
 
   return (
@@ -41,9 +41,10 @@ const Accodian = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                onMouseEnter={() => handleMouseEnter(index, 'section1')}
+                onMouseLeave={handleMouseLeave}
               >
                 <div
-                  onClick={() => toggleOpen(index, 'section1')}
                   className="flex items-center justify-between cursor-pointer bg-gradient-to-r from-white to-purple-50 hover:from-purple-50 hover:to-indigo-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-4 sm:p-5 group"
                 >
                   <h2 className="text-base sm:text-lg md:text-xl font-semibold text-zinc-700 group-hover:text-indigo-900 transition-colors pr-3">
@@ -111,9 +112,10 @@ const Accodian = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                onMouseEnter={() => handleMouseEnter(index, 'section2')}
+                onMouseLeave={handleMouseLeave}
               >
                 <div
-                  onClick={() => toggleOpen(index, 'section2')}
                   className="flex items-center justify-between uppercase cursor-pointer bg-gradient-to-r from-white to-purple-50 hover:from-purple-50 hover:to-indigo-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-4 sm:p-5 group"
                 >
                   <h2 className="text-sm sm:text-base md:text-lg font-semibold text-zinc-700 group-hover:text-indigo-900 transition-colors pr-3">
@@ -181,9 +183,10 @@ const Accodian = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                onMouseEnter={() => handleMouseEnter(index, 'section3')}
+                onMouseLeave={handleMouseLeave}
               >
                 <div
-                  onClick={() => toggleOpen(index, 'section3')}
                   className="flex items-center uppercase justify-between cursor-pointer bg-gradient-to-r from-white to-purple-50 hover:from-purple-50 hover:to-indigo-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-4 sm:p-5 group"
                 >
                   <h2 className="text-sm sm:text-base md:text-lg font-semibold text-zinc-700 group-hover:text-indigo-900 transition-colors pr-3">
@@ -251,9 +254,10 @@ const Accodian = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                onMouseEnter={() => handleMouseEnter(index, 'section4')}
+                onMouseLeave={handleMouseLeave}
               >
                 <div
-                  onClick={() => toggleOpen(index, 'section4')}
                   className="flex items-center justify-between uppercase cursor-pointer bg-gradient-to-r from-white to-purple-50 hover:from-purple-50 hover:to-indigo-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-4 sm:p-5 group"
                 >
                   <h2 className="text-sm sm:text-base md:text-lg font-semibold text-zinc-700 group-hover:text-indigo-900 transition-colors pr-3">
