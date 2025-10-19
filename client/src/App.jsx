@@ -41,24 +41,98 @@ const App = () => {
 
   // Initialize Locomotive Scroll
   useEffect(() => {
-    locoRef.current = new LocomotiveScroll({
-      el: scrollRef.current,
-      smooth: true,
-      multiplier: 1.2,
-      smartphone: { smooth: false },
-      tablet: { smooth: false },
-    });
+    // Small delay to ensure DOM is fully rendered
+    const timer = setTimeout(() => {
+      if (scrollRef.current) {
+        locoRef.current = new LocomotiveScroll({
+          el: scrollRef.current,
+          smooth: true,
+          multiplier: 0.8, // Reduced for better control
+          lerp: 0.1, // Smooth interpolation
+          smartphone: { 
+            smooth: false,
+            breakpoint: 768 
+          },
+          tablet: { 
+            smooth: false,
+            breakpoint: 1024 
+          },
+          reloadOnContextChange: true,
+          resetNativeScroll: true,
+        });
+
+        // Update on window resize
+        const handleResize = () => {
+          if (locoRef.current) {
+            locoRef.current.update();
+          }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }
+    }, 100);
 
     return () => {
-      if (locoRef.current) locoRef.current.destroy();
+      clearTimeout(timer);
+      if (locoRef.current) {
+        locoRef.current.destroy();
+      }
     };
   }, []);
 
-  // Update Locomotive Scroll on route change
+  // Handle route changes
   useEffect(() => {
     if (locoRef.current) {
+      // Scroll to top on route change
+      locoRef.current.scrollTo(0, {
+        duration: 0,
+        disableLerp: true
+      });
+
+      // Update scroll after a short delay to recalculate heights
+      const timer = setTimeout(() => {
+        if (locoRef.current) {
+          locoRef.current.update();
+        }
+      }, 150);
+
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname]);
+
+  // Update scroll when images load
+  useEffect(() => {
+    const images = document.querySelectorAll('img');
+    let loadedCount = 0;
+
+    const onImageLoad = () => {
+      loadedCount++;
+      if (loadedCount === images.length && locoRef.current) {
+        locoRef.current.update();
+      }
+    };
+
+    images.forEach(img => {
+      if (img.complete) {
+        loadedCount++;
+      } else {
+        img.addEventListener('load', onImageLoad);
+      }
+    });
+
+    if (loadedCount === images.length && locoRef.current) {
       locoRef.current.update();
     }
+
+    return () => {
+      images.forEach(img => {
+        img.removeEventListener('load', onImageLoad);
+      });
+    };
   }, [location.pathname]);
 
   return (
