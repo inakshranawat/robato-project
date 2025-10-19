@@ -1,13 +1,48 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../context/useContext'
-import {motion} from "framer-motion"
+import {motion , useMotionValue, useTransform } from "framer-motion"
 import { HandShake, InsightImage } from '../assets/assets'
+import { useRef } from "react";
+
 
 
 const Insights = () => { 
     const navigate = useNavigate()
     const {setDemoOpen} = useAppContext()
+
+  const ref = useRef(null);
+
+  const x = useMotionValue(0.5);
+  const y = useMotionValue(0.5);
+
+  const rotateX = useTransform(y, [0, 1], [10, -10]);
+  const rotateY = useTransform(x, [0, 1], [-10, 10]);
+  const scale = useTransform(x, [0, 1], [1, 1.05]); // useTransform instead of interpolate
+
+
+  // Dynamic shadow
+  const boxShadow = useTransform(
+    [x, y],
+    ([latestX, latestY]) =>
+      `${(latestX - 0.5) * 60}px ${(latestY - 0.5) * 60}px 40px rgba(0,0,0,0.4)`
+  );
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const posX = (e.clientX - rect.left) / rect.width;
+    const posY = (e.clientY - rect.top) / rect.height;
+    x.set(posX);
+    y.set(posY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0.5);
+    y.set(0.5);
+  };
+
+
   return (
      <>
        <div className="px-4 sm:px-6 lg:px-8">
@@ -19,9 +54,27 @@ const Insights = () => {
           </div>
 
           {/* Image Section */}
-          <div className="w-full max-w-6xl mx-auto mb-8 sm:mb-12">
-             <img src={InsightImage} alt="Analytics Platform" className="w-full h-auto" />
-          </div>
+             <div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ perspective: 1000 }}
+      className="w-full max-w-6xl mx-auto mb-8 sm:mb-12"
+    >
+      <motion.img
+        src={InsightImage}
+        alt="Analytics Platform"
+        className="w-full h-auto rounded-2xl cursor-pointer"
+        style={{
+          rotateX: rotateX,
+          rotateY: rotateY,
+          scale: scale,
+          boxShadow: boxShadow, // useTransform handles it
+        }}
+        transition={{ type: "spring", stiffness: 100, damping: 12 }}
+      />
+    </div>
+
 
           {/* Buttons Section */}
           <div className='flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 mb-12 sm:mb-16 lg:mb-20 px-4'>

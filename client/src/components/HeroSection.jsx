@@ -42,7 +42,7 @@ const HeroSection = () => {
           </motion.h1>
 
           <motion.p
-            className="mt-5 text-lg sm:text-xl md:text-2xl w-full lg:w-[600px] mx-auto lg:mx-0"
+            className="mt-5 text-lg text-depth sm:text-xl md:text-2xl w-full lg:w-[600px] mx-auto lg:mx-0"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, delay: 0.8, ease: "easeOut" }}
