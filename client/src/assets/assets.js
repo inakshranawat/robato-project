@@ -4763,19 +4763,6 @@ The benefits of Andon Signal Tower Lights are far-reaching, from reducing downti
   },
 
 
-     {
-    slug: " ",
-    title: " ",
-    description:
-      `
-      `,
-    writtenBy: "UDIT",
-    date: "Jun 05,2025",
-    companyName: "Andon System",
-    image: "https://iiot.robatosystems.com/admin/blogimg/dall%C2%B7e-2025-01-30-10.39.35---a-professional-landscape-image-illustrating-the-role-of-andon-displays-in-supporting-industry-4.0-initiatives-in-a-modern-manufacturing-environment.-t.webp",
-    category: "Andon System",
-  },
-
 
 
 
