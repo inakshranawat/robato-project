@@ -75,7 +75,8 @@ const Insights = () => {
           </div>
 
           {/* Image Section */}
-             <div
+          
+      <div
       ref={ref}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -96,6 +97,8 @@ const Insights = () => {
         transition={{ type: "spring", stiffness: 100, damping: 12 }}
       />
     </div>
+
+
 
           {/* Buttons Section */}
           <motion.div
