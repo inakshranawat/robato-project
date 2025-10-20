@@ -1,9 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../context/useContext'
-import {motion , useMotionValue, useTransform } from "framer-motion"
+import {motion , useMotionValue, useTransform,  useAnimation  } from "framer-motion"
 import { HandShake, InsightImage } from '../assets/assets'
-import { useRef } from "react";
+import { useRef , useEffect } from "react";
 
 
 
@@ -12,20 +12,20 @@ const Insights = () => {
     const {setDemoOpen} = useAppContext()
 
   const ref = useRef(null);
-
   const x = useMotionValue(0.5);
   const y = useMotionValue(0.5);
+  const controls = useAnimation();
 
+  // Rotation + Scale
   const rotateX = useTransform(y, [0, 1], [10, -10]);
   const rotateY = useTransform(x, [0, 1], [-10, 10]);
-  const scale = useTransform(x, [0, 1], [1, 1.05]); // useTransform instead of interpolate
-
+  const scale = useTransform(x, [0, 1], [1, 1.05]);
 
   // Dynamic shadow
   const boxShadow = useTransform(
     [x, y],
     ([latestX, latestY]) =>
-      `${(latestX - 0.5) * 60}px ${(latestY - 0.5) * 60}px 40px rgba(0,0,0,0.4)`
+      `${(latestX - 0.5) * 60}px ${(latestY - 0.5) * 60}px 40px rgba(0,0,0,0.8)`
   );
 
   const handleMouseMove = (e) => {
@@ -35,14 +35,35 @@ const Insights = () => {
     const posY = (e.clientY - rect.top) / rect.height;
     x.set(posX);
     y.set(posY);
+
+    // Stop idle animation while interacting
+    controls.stop();
   };
 
   const handleMouseLeave = () => {
     x.set(0.5);
     y.set(0.5);
+    startIdleAnimation(); // Restart idle animation
   };
 
+  // Idle motion effect
+  const startIdleAnimation = () => {
+    controls.start({
+      rotateX: [6, -8, 6],
+      rotateY: [-6, 8, -6],
+      scale: [1, 1.03, 1],
+      transition: {
+        rotateX: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+        rotateY: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+        scale: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+      },
+    });
+  };
 
+  // Start idle animation initially
+  useEffect(() => {
+    startIdleAnimation();
+  }, []);
   return (
      <>
        <div className="px-4 sm:px-6 lg:px-8">
@@ -66,18 +87,23 @@ const Insights = () => {
         alt="Analytics Platform"
         className="w-full h-auto rounded-2xl cursor-pointer"
         style={{
-          rotateX: rotateX,
-          rotateY: rotateY,
-          scale: scale,
-          boxShadow: boxShadow, // useTransform handles it
+          rotateX,
+          rotateY,
+          scale,
+          boxShadow,
         }}
+        animate={controls}
         transition={{ type: "spring", stiffness: 100, damping: 12 }}
       />
     </div>
 
-
           {/* Buttons Section */}
-          <div className='flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 mb-12 sm:mb-16 lg:mb-20 px-4'>
+          <motion.div
+            initial={{opacity:0 , y:-50}}
+            whileInView={{opacity:1,y:0}}
+            transition={{duration:1 , delay:0.7}}
+            viewport={{once:true}}
+          className='flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 mb-12 sm:mb-16 lg:mb-20 px-4'>
               <button 
                 onClick={()=> setDemoOpen(true)} 
                 className='w-full sm:w-auto cursor-pointer text-purple-950 border border-purple-950 px-6 sm:px-8 py-3 hover:text-white hover:bg-purple-950 bg-transparent transition-colors duration-300 font-medium'
@@ -90,7 +116,7 @@ const Insights = () => {
               >
                 TRY IT NOW
               </button>
-          </div>
+          </motion.div>
 
           {/* Testimonial Section */}
           <div className='w-full py-10 sm:py-16 lg:py-20 px-4 sm:px-8 lg:px-16 xl:px-20 flex flex-col lg:flex-row gap-8 lg:gap-12 xl:gap-20 bg-indigo-900 mt-12 sm:mt-16 lg:mt-20'>
