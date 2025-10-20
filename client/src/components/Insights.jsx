@@ -63,7 +63,7 @@ const Insights = () => {
   // Start idle animation initially
   useEffect(() => {
     startIdleAnimation();
-  }, );
+  },[] );
   return (
      <>
        <div className="px-4 sm:px-6 lg:px-8">
